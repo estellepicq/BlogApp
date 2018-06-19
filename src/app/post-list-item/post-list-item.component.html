@@ -1,0 +1,7 @@
+<li class="list-group-item" [class.list-group-item-success]="post.loveIts > 0" [class.list-group-item-danger]="post.loveIts < 0">
+  <h3>{{post.title}}</h3>
+  <p>{{post.content}}</p>
+  <button type="button" name="loveIt" class="btn btn-success" (click)="onLoveIt()"><i class="fa fa-thumbs-up mr-2"></i>I love it!</button>
+  <button type="button" name="dontLoveIt" class="btn btn-danger ml-2" (click)="onHateIt()"><i class="fa fa-thumbs-down mr-2"></i>I hate it...</button>
+  <span class="pull-right text-muted">{{post.created_at}}</span>
+</li>
