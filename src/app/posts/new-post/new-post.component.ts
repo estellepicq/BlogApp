@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { PostService } from '../post.service';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-new-post',

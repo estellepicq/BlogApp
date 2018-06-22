@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { PostListComponent } from './post-list/post-list.component';
-import { PostListItemComponent } from './post-list-item/post-list-item.component';
-import { NewPostComponent } from './new-post/new-post.component';
-import { AppRoutingModule } from './/app-routing.module';
-import { NavbarComponent } from './navbar/navbar.component';
+import { PostListComponent } from './posts/post-list/post-list.component';
+import { PostListItemComponent } from './posts/post-list-item/post-list-item.component';
+import { NewPostComponent } from './posts/new-post/new-post.component';
+import { NavbarComponent } from './header/navbar/navbar.component';
 
-import { PostService } from './post.service';
+import { PostService } from './services/post.service';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
