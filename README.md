@@ -8,7 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Installation
 
-* Clone the project in a local repository
+* Clone the project in a local repository: git clone https://github.com/estellepicq/BlogApp.git 
 * Run `npm install` to install node modules
 
 ## Usage

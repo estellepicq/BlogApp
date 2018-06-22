@@ -1,0 +1,15 @@
+<h1 class="header">Nouveau post</h1>
+
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div class="form-group">
+
+    <label for="title">Titre</label>
+    <input type="text" name="title" class="form-control" ngModel required>
+
+    <label for="content">Contenu</label>
+    <textarea name="content" rows="8" cols="80" class="form-control" ngModel required></textarea>
+
+    <input type="submit" name="submit" value="Ajouter post" class="btn btn-lg btn-primary btn-block mt-3" [disabled]="f.invalid">
+
+  </div>
+</form>
