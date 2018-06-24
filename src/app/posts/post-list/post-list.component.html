@@ -2,10 +2,14 @@
 
 <ul class="list-group" *ngFor="let post of posts">
   <li class="list-group-item" [class.list-group-item-success]="post.loveIts > 0" [class.list-group-item-danger]="post.loveIts < 0">
-    <h3><a routerLink="/post/{{post.id}}" class="text-dark">{{post.title}}</a></h3>
-    <p>{{post.content}}</p>
-    <button type="button" name="loveIt" class="btn btn-success" (click)="onLoveIt(post)"><i class="fa fa-thumbs-up mr-2"></i>J'aime</button>
-    <button type="button" name="dontLoveIt" class="btn btn-danger ml-2" (click)="onHateIt(post)"><i class="fa fa-thumbs-down mr-2"></i>Je n'aime pas</button>
+    <h3>{{post.title}}</h3>
+    <p>{{post.content | slice:0:150}}<a routerLink="/post/{{post.id}}">... Read more</a></p>
+    <button type="button" name="loveIt" class="btn btn-success" (click)="onLoveIt(post)"><i class="fa fa-thumbs-up"></i></button>
+    <button type="button" name="dontLoveIt" class="btn btn-danger ml-2" (click)="onHateIt(post)"><i class="fa fa-thumbs-down"></i></button>
     <span class="pull-right text-muted">{{post.created_at | date: 'short' }}</span>
   </li>
 </ul>
+
+<div class="mt-3">
+  <button class="btn btn-primary" (click)="onNewPost()"><i class="fa fa-plus mr-2"></i>New post</button>
+</div>

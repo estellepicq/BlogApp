@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 
 import { Post } from '../../models/post';
 
@@ -20,10 +20,14 @@ export class PostListItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getPost();
   }
 
   getPost(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.postService.getPostById(id).then((post: Post) => {
+      this.post = post;
+    });
   }
 
   onLoveIt(post: Post): void {
