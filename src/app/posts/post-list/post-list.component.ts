@@ -22,7 +22,15 @@ export class PostListComponent implements OnInit {
   }
 
   getPosts() {
-    this.postService.getPostsFromServer().subscribe(response => this.posts = response);
+    this.postService.getPosts().subscribe(response => this.posts = response);
+  }
+
+  onLoveIt(post: Post): void {
+    this.postService.onLoveIt(post);
+  }
+
+  onHateIt(post: Post): void {
+    this.postService.onHateIt(post);
   }
 
 }
