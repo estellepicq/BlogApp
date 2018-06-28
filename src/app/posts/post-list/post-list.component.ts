@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { Post } from '../../models/post';
 
+import { AuthService } from '../../services/auth.service';
 import { PostService } from '../../services/post.service';
 
 @Component({
@@ -17,12 +18,14 @@ export class PostListComponent implements OnInit, OnDestroy {
   postsSubscription: Subscription;
 
   constructor(
+    public authService: AuthService,
     private postService: PostService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.getPosts();
+    this.authService.watchAuthState();
   }
 
   getPosts() {
@@ -30,7 +33,6 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.posts = posts;
     });
     this.postService.getPosts();
-    //this.postService.emitPosts();
   }
 
   onNewPost(): void {
@@ -39,6 +41,10 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   onViewPost(id: number): void {
     this.router.navigate([`/posts/${id}`]);
+  }
+
+  onDeletePost(post: Post): void {
+    this.postService.removePost(post);
   }
 
   onLoveIt(post: Post): void {

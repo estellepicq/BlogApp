@@ -1,0 +1,8 @@
+.label-file {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.input-file {
+    display: none;
+}

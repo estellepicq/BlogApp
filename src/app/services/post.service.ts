@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 
 import * as firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/storage';
 import DataSnapshot = firebase.database.DataSnapshot;
 
 import { Post } from '../models/post';
@@ -13,7 +14,7 @@ import { Post } from '../models/post';
 })
 export class PostService {
 
-  posts: Post[] = [];
+  posts: Post[];
   postsSubject = new Subject<Post[]>();
 
   emitPosts(): void {
@@ -32,27 +33,44 @@ export class PostService {
   }
 
   getPostById(id: number): Promise<Post> {
+    let postId = '';
     return new Promise(
       (resolve: Function, reject: Function) => {
-        firebase.database().ref('/posts/' + id).once('value').then(
-          (data: DataSnapshot) => {
-            resolve(data.val());
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-      }
-    );
+        firebase.database().ref('posts').orderByChild('id').equalTo(id).on('child_added', (snapshot) => {
+          postId = snapshot.key;
+          firebase.database().ref('/posts/' + postId).once('value').then(
+            (data: DataSnapshot) => {
+              resolve(data.val());
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+    });
   }
 
   addPost(newPost: Post): void {
+    if(this.getPostsLength() === 0) {
+      this.posts = [];
+    }
     this.posts.push(newPost);
     this.savePosts();
     this.emitPosts();
   }
 
   removePost(post: Post): void {
+    if(post.photo) {
+      const storageRef = firebase.storage().refFromURL(post.photo);
+      storageRef.delete().then(
+        () => {
+          console.log('Photo removed!');
+        },
+        (error) => {
+          console.log('Could not remove photo! : ' + error);
+        }
+      );
+    }
     const postIndexToRemove = this.posts.findIndex(
       (postEl) => {
         if(postEl === post) {
@@ -67,32 +85,50 @@ export class PostService {
 
   onLoveIt(post: Post): void {
     post.loveIts++;
+    this.savePosts();
+    this.emitPosts();
   }
 
   onHateIt(post: Post): void {
-    post.loveIts--;
+    post.hateIts++;
+    this.savePosts();
+    this.emitPosts();
   }
 
   getPostsLength(): number {
     this.getPosts();
-    return this.posts.length;
+    if(this.posts) {
+      return this.posts.length;
+    } else {
+      return 0;
+    }
   }
 
-    // addPost(title: string, content: string): void {
-    //   this.getPosts().subscribe(response => {
-    //     this.posts = response;
-    //     const post: Post = {
-    //       id: 0,
-    //       title: '',
-    //       content: '',
-    //       loveIts: 0,
-    //       created_at: new Date()
-    //     };
-    //     post.title = title;
-    //     post.content = content;
-    //     post.id = this.posts[(this.posts.length - 1)].id + 1;
-    //     this.posts.push(post);
-    //   });
-    // }
+  uploadFile(file: File) {
+    return new Promise(
+      (resolve, reject) => {
+        const timeStamp = Date.now().toString();
+        const fileRef = firebase.storage().ref().child('images/' + timeStamp + file.name);
+        const upload = fileRef.put(file);
+        upload.on('state_changed',
+          (snapshot: any) => {
+            let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+          },
+          (error) => {
+            console.log(error);
+            reject();
+          },
+          () => {
+            upload.snapshot.ref.getDownloadURL().then(
+              (downloadURL) => {
+                resolve(downloadURL);
+              }
+            );
+          }
+        );
+      }
+    );
+  }
 
 }

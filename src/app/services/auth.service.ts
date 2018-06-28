@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -6,6 +7,8 @@ import 'firebase/auth';
   providedIn: 'root'
 })
 export class AuthService {
+
+  isAuth: boolean;
 
   constructor() { }
 
@@ -41,6 +44,19 @@ export class AuthService {
 
   logoutUser(): void {
     firebase.auth().signOut();
+    this.isAuth = false;
+  }
+
+  watchAuthState() {
+    firebase.auth().onAuthStateChanged(
+      (user) => {
+        if(user) {
+          this.isAuth = true;
+        } else {
+          this.isAuth = false;
+        }
+      }
+    );
   }
 
 }

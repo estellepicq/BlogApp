@@ -9,7 +9,11 @@
     <label for="content">Content</label>
     <textarea rows="8" cols="80" class="form-control" formControlName="content"></textarea>
 
-    <input type="submit" value="Add post" class="btn btn-lg btn-primary btn-block mt-3" [disabled]="postForm.invalid">
+    <label for="file" class="label-file btn btn-secondary mt-3">Upload picture</label>
+    <input type="file" id="file" (change)="detectFiles($event)" class="form-control input-file" accept="image/*">
+    <p class="text-success" *ngIf="fileUploaded">File uploaded</p>
+
+    <input type="submit" value="Add post" class="btn btn-lg btn-primary btn-block mt-3" [disabled]="postForm.invalid || fileIsUploading">
 
   </div>
 </form>

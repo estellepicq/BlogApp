@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Post } from '../../models/post';
 
+import { AuthService } from '../../services/auth.service';
 import { PostService } from '../../services/post.service';
 
 @Component({
@@ -15,12 +16,15 @@ export class PostListItemComponent implements OnInit {
   post: Post;
 
   constructor(
+    public authService: AuthService,
     private postService: PostService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.getPost();
+    this.authService.watchAuthState();
   }
 
   getPost(): void {
@@ -28,6 +32,11 @@ export class PostListItemComponent implements OnInit {
     this.postService.getPostById(id).then((post: Post) => {
       this.post = post;
     });
+  }
+
+  onDeletePost(post: Post): void {
+    this.postService.removePost(post);
+    this.router.navigate(['/posts']);
   }
 
   onLoveIt(post: Post): void {

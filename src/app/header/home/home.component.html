@@ -1,3 +1,9 @@
-<p>
-  home works!
-</p>
+<div class="row">
+  <div class="col-lg-12 text-center">
+    <h1 class="mt-5">Welcome on BlogApp</h1>
+    <p class="lead">Blog application where you can write and like posts.</p>
+    <button type="button" name="posts" class="btn btn-primary mr-3" routerLink="/posts">Views posts</button>
+    <button type="button" name="new" class="btn btn-primary" routerLink="/new" *ngIf="authService.isAuth">New post</button>
+    <button type="button" name="new" class="btn btn-primary" routerLink="/login" *ngIf="!authService.isAuth">Login</button>
+  </div>
+</div>

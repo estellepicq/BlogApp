@@ -12,26 +12,12 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  isAuth: boolean;
-
   constructor(
-    private authService: AuthService
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.watchAuthState();
-  }
-
-  watchAuthState() {
-    firebase.auth().onAuthStateChanged(
-      (user) => {
-        if(user) {
-          this.isAuth = true;
-        } else {
-          this.isAuth = false;
-        }
-      }
-    );
+    this.authService.watchAuthState();
   }
 
   onLogout(): void {
