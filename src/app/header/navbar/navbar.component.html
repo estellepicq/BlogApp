@@ -17,7 +17,10 @@
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
       <li class="nav-item" *ngIf="!(afAuth.user| async)">
-        <a class="nav-link"routerLink="/register">Register</a>
+        <a class="nav-link" routerLink="/register">Register</a>
+      </li>
+      <li class="nav-item" *ngIf="afAuth.user| async">
+        <a class="nav-link" routerLink="/profile">Profile</a>
       </li>
       <li class="nav-item" *ngIf="afAuth.user| async">
         <a class="nav-link" style="cursor: pointer;" (click)="onLogout()">Logout</a>
