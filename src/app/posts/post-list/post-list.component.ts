@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Post } from '../../models/post';
 
-import { AuthService } from '../../services/auth.service';
 import { PostService } from '../../services/post.service';
 
 @Component({
@@ -18,14 +18,13 @@ export class PostListComponent implements OnInit, OnDestroy {
   postsSubscription: Subscription;
 
   constructor(
-    public authService: AuthService,
     private postService: PostService,
-    private router: Router
+    private router: Router,
+    public afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
     this.getPosts();
-    this.authService.watchAuthState();
   }
 
   getPosts() {

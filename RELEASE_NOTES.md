@@ -1,3 +1,9 @@
+Version 1.3.0 (08/07/2018)
+-----------------------------
+* Use of angularfire2 library
+* Complete authentication management with Google & Facebook login and password reset
+* Implementation of toaster alerts
+
 Version 1.2.0 (28/06/2018)
 -----------------------------
 * Implementation of firebase database to store posts

@@ -1,6 +1,16 @@
 <div class="row">
   <div class="col-sm-8 offset-sm-2">
-    <h2>Login</h2>
+    <h2 class="text-center mb-3">Login</h2>
+    <button type="button" class="btn btn-primary btn-block" (click)="loginWithFacebook()">
+       <i class="fa fa-facebook" aria-hidden="true"></i>
+       Login with Facebook
+    </button>
+    <button type="button" class="btn btn-danger btn-block" (click)="loginWithGoogle()">
+      <i class="fa fa-google" aria-hidden="true"></i>
+      Login with Google
+    </button>
+    <hr>
+    <h6 class="text-center">Login with your email address</h6>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="email">Email</label>
@@ -10,9 +20,12 @@
         <label for="password">Password</label>
         <input type="password" id="password" class="form-control" formControlName="password">
       </div>
-      <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+      <button class="btn btn-secondary btn-block" type="submit" [disabled]="loginForm.invalid">Login</button>
     </form>
-    <p><a routerLink="/register" class="nav-link">Don't have an account? Register now!</a></p>
+    <div class="row mx-4 my-2">
+      <a href="#" class="mr-auto nav-link" (click)="onForgotPassword()">Forgot your password?</a>
+      <a routerLink="/register" class="ml-auto nav-link">No account?</a>
+    </div>
     <p class="text-danger">{{errorMessage}}</p>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <div *ngIf="post">
   <h3>
     {{post.title}}
-    <button *ngIf="authService.isAuth" type="button" name="deletePost" class="btn btn-outline-danger btn-sm ml-2" (click)="onDeletePost(post)" title="Delete"><i class="fa fa-minus"></i></button>
+    <button *ngIf="afAuth.user| async" type="button" name="deletePost" class="btn btn-outline-danger btn-sm ml-2" (click)="onDeletePost(post)" title="Delete"><i class="fa fa-minus"></i></button>
   </h3>
   <div class="text-muted">{{post.created_at | date: 'short' }}</div>
   <img style="max-width:300px;" *ngIf="post.photo" [src]="post.photo" class="img-fluid">

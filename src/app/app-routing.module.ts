@@ -5,7 +5,9 @@ import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { RegisterConfirmComponent } from './auth/register-confirm/register-confirm.component';
 import { HomeComponent } from './header/home/home.component';
+import { ProfileComponent } from './header/profile/profile.component';
 
 import { AuthGuardService } from './services/auth-guard.service';
 
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'register-confirm', component: RegisterConfirmComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'posts', component: PostListComponent },
   { path: 'new', canActivate: [AuthGuardService], component: NewPostComponent }, //User must be logged
   { path: 'post/:id', component: PostListItemComponent },

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Post } from '../../models/post';
 
-import { AuthService } from '../../services/auth.service';
 import { PostService } from '../../services/post.service';
 
 @Component({
@@ -16,15 +16,14 @@ export class PostListItemComponent implements OnInit {
   post: Post;
 
   constructor(
-    public authService: AuthService,
     private postService: PostService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
     this.getPost();
-    this.authService.watchAuthState();
   }
 
   getPost(): void {

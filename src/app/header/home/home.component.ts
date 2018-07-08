@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
-
-import { AuthService } from '../../services/auth.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +10,10 @@ import { AuthService } from '../../services/auth.service';
 export class HomeComponent implements OnInit {
 
   constructor(
-    public authService: AuthService
+    public afAuth: AngularFireAuth
   ) { }
 
   ngOnInit(): void {
-    this.authService.watchAuthState();
   }
 
 }
